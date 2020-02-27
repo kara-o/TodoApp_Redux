@@ -28,4 +28,4 @@ const mapDispatchToProps = {
   addTodo
 };
 
-export default connect(null, { addTodo })(AddTodo);
+export default connect(null, { addTodo })(AddTodo); //using mapDispatchToProps in object form and passing object full of action creators, React-Redux automatically uses bindActionCreators
