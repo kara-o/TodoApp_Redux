@@ -15,9 +15,11 @@ const TodoList = props => {
   const { todosById, orderedIds } = props;
 
   const displayTodos = () => {
-    return orderedIds.map(id => {
-      return <Todo key={id} todo={todosById[id]} />;
-    });
+    if (orderedIds.length > 0) {
+      return orderedIds.map(id => {
+        return <Todo key={id} todo={todosById[id]} todoId={id} />;
+      });
+    } else return <p>Yay, nothing to do!</p>;
   };
 
   return (
