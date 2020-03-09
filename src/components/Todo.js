@@ -4,7 +4,7 @@ import { toggleTodo } from '../actions/actions';
 import { connect } from 'react-redux';
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  toggleTodo: () => dispatch(toggleTodo(ownProps.todoId))
+  toggleTodo: () => dispatch(toggleTodo(ownProps.todo.id))
 });
 
 const Todo = props => {
@@ -15,7 +15,7 @@ const Todo = props => {
       {todo.text}
       <input
         type='checkbox'
-        checked={todo.completed}
+        checked={false} //todo.completed
         onChange={props.toggleTodo}
       />
     </li>

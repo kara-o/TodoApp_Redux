@@ -8,7 +8,7 @@ const AddTodo = props => {
   const handleSubmitTodo = () => {
     props.addTodo(todoText);
     setTodoText('');
-    createTodo()
+    createTodo();
   };
 
   const createTodo = async () => {
@@ -27,10 +27,10 @@ const AddTodo = props => {
       if (response.ok) {
         return response.json();
       } else {
-        throw new Error('Something went wrong')
+        throw new Error('Something went wrong');
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -44,10 +44,6 @@ const AddTodo = props => {
       <input type='submit' value='Add Todo' onClick={handleSubmitTodo} />
     </div>
   );
-};
-
-const mapDispatchToProps = {
-  addTodo
 };
 
 export default connect(null, { addTodo })(AddTodo); //using mapDispatchToProps in object form and passing object full of action creators, React-Redux automatically uses bindActionCreators

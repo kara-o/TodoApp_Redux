@@ -16,3 +16,10 @@ export const toggleTodo = id => {
     payload: { id }
   };
 };
+
+export const setTodos = todos => {
+  return {
+    type: actionTypes.SET_TODOS,
+    payload: { todos }
+  };
+};
