@@ -4,7 +4,7 @@ import { toggleTodo } from '../actions/actions';
 import { connect } from 'react-redux';
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  toggleTodo: () => dispatch(toggleTodo(ownProps.todo.id))
+  toggleTodo: () => dispatch(toggleTodo(ownProps.todo))
 });
 
 const Todo = props => {

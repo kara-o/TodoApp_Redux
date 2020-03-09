@@ -25,16 +25,14 @@ export const todos = (state = initialState, action) => {
       };
     }
     case TOGGLE_TODO: {
-      const { id } = action.payload;
+      const { todo } = action.payload;
+
       return {
         ...state,
-        todosById: {
-          ...state.todosById,
-          [id]: {
-            text: state.todosById[id].text,
-            completed: !state.todosById[id].completed
-          }
-        }
+        allTodos: [
+          ...state.allTodos.filter(t => t.id !== todo.id),
+          { id: todo.id, text: todo.text, completed: !todo.completed }
+        ].sort((a, b) => a.id - b.id)
       };
     }
     default:
