@@ -5,11 +5,33 @@ import { addTodo } from '../actions/actions';
 const AddTodo = props => {
   const [todoText, setTodoText] = useState('');
 
-  const handleSubmitTodo = e => {
-    console.log('here in submit', todoText);
-    e.preventDefault();
+  const handleSubmitTodo = () => {
     props.addTodo(todoText);
     setTodoText('');
+    createTodo()
+  };
+
+  const createTodo = async () => {
+    try {
+      const config = {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          text: todoText
+        })
+      };
+      const response = await fetch('/api/todos', config);
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Something went wrong')
+      }
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
