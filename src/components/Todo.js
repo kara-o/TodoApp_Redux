@@ -15,7 +15,7 @@ const Todo = props => {
       {todo.text}
       <input
         type='checkbox'
-        checked={false} //todo.completed
+        checked={todo.completed}
         onChange={props.toggleTodo}
       />
     </li>

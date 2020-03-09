@@ -4,8 +4,6 @@ import { TOGGLE_TODO, ADD_TODO, SET_TODOS } from '../actions/actionTypes';
 // we are storing the actual todos in an object, as individual objects, with id as key/todo as value
 
 const initialState = {
-  todosById: {},
-  orderedIds: [],
   allTodos: []
 };
 
@@ -13,23 +11,17 @@ export const todos = (state = initialState, action) => {
   switch (action.type) {
     case SET_TODOS: {
       const { todos } = action.payload;
+      console.log(todos);
       return {
         ...state,
         allTodos: [...state.allTodos, ...todos]
       };
     }
     case ADD_TODO: {
-      const { text, id } = action.payload;
+      const { id, text } = action.payload;
       return {
         ...state,
-        todosById: {
-          ...state.todosById,
-          [id]: {
-            text,
-            completed: false
-          }
-        },
-        orderedIds: [...state.orderedIds, id]
+        allTodos: [...state.allTodos, { id, text, completed: false }]
       };
     }
     case TOGGLE_TODO: {

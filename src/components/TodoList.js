@@ -40,7 +40,7 @@ const TodoList = props => {
       return allTodos.map(todo => {
         return <Todo key={todo.id} todo={todo} />;
       });
-    } else return <p>Yay, nothing to do!</p>;
+    } else return null;
   };
 
   return (

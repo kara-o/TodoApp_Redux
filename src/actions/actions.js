@@ -1,19 +1,14 @@
 import * as actionTypes from './actionTypes';
 
-let currentId = 0;
-
-export const addTodo = text => ({
+export const addTodo = (id, text) => ({
   type: actionTypes.ADD_TODO,
-  payload: {
-    text,
-    id: ++currentId
-  }
+  payload: { id, text }
 });
 
-export const toggleTodo = id => {
+export const toggleTodo = todo => {
   return {
     type: actionTypes.TOGGLE_TODO,
-    payload: { id }
+    payload: { todo }
   };
 };
 

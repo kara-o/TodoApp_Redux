@@ -6,9 +6,10 @@ const AddTodo = props => {
   const [todoText, setTodoText] = useState('');
 
   const handleSubmitTodo = () => {
-    props.addTodo(todoText);
     setTodoText('');
-    createTodo();
+    createTodo().then(res => {
+      props.addTodo(res.id, todoText);
+    });
   };
 
   const createTodo = async () => {
@@ -27,7 +28,9 @@ const AddTodo = props => {
       if (response.ok) {
         return response.json();
       } else {
-        throw new Error('Something went wrong');
+        throw new Error(
+          `There was an error, unable to create todo with text ${todoText}`
+        );
       }
     } catch (error) {
       console.log(error);
