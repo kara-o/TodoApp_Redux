@@ -10,14 +10,14 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 const Todo = props => {
   const { todo } = props;
 
+  const handleToggle = () => {
+    props.toggleTodo();
+  };
+
   return (
     <li>
       {todo.text}
-      <input
-        type='checkbox'
-        checked={todo.completed}
-        onChange={props.toggleTodo}
-      />
+      <input type='checkbox' checked={todo.completed} onChange={handleToggle} />
     </li>
   );
 };
