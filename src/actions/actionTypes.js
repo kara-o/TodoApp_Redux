@@ -1,3 +1,7 @@
-export const ADD_TODO = 'ADD_TODO';
+export const FETCH_TODOS = 'FETCH_TODOS';
+export const REQUEST_TODOS = 'REQUEST_TODOS';
+export const RECEIVE_TODOS = 'RECEIVE_TODOS';
+export const RECEIVE_TODOS_ERROR = 'RECEIVE_TODOS_ERROR';
 export const TOGGLE_TODO = 'TOGGLE_TODO';
-export const SET_TODOS = 'SET_TODOS';
+export const SELECT_FILTER = 'SELECT_FILTER';
+export const CREATE_TODO = 'CREATE_TODO';

@@ -10,8 +10,31 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 const Todo = props => {
   const { todo } = props;
 
+  const toggle = async () => {
+    try {
+      const config = {
+        method: 'PATCH',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          completed: !todo.completed
+        })
+      };
+      const response = await fetch(`/api/todos/${todo.id}/toggle`, config);
+      if (response.ok) {
+        return response.json({ message: 'Successfully toggled!' });
+      } else {
+        throw new Error('There was an error toggling');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleToggle = () => {
-    props.toggleTodo();
+    toggle().then(props.toggleTodo());
   };
 
   return (

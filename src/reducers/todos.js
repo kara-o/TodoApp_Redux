@@ -1,27 +1,40 @@
-import { TOGGLE_TODO, ADD_TODO, SET_TODOS } from '../actions/actionTypes';
-
-// we are going to keep an array of just ids for ordering purposes - we don't want to order of the todos to always change!  can't guarantee order
-// we are storing the actual todos in an object, as individual objects, with id as key/todo as value
+import {
+  TOGGLE_TODO,
+  REQUEST_TODOS,
+  RECEIVE_TODOS,
+  RECEIVE_TODOS_ERROR,
+  CREATE_TODO
+} from '../actions/actionTypes';
 
 const initialState = {
-  allTodos: []
+  isFetching: false,
+  items: []
 };
 
 export const todos = (state = initialState, action) => {
   switch (action.type) {
-    case SET_TODOS: {
-      const { todos } = action.payload;
-      console.log(todos);
+    case CREATE_TODO: {
+      return null;
+    }
+    case REQUEST_TODOS: {
       return {
         ...state,
-        allTodos: [...state.allTodos, ...todos]
+        isFetching: true
       };
     }
-    case ADD_TODO: {
-      const { id, text } = action.payload;
+    case RECEIVE_TODOS: {
       return {
         ...state,
-        allTodos: [...state.allTodos, { id, text, completed: false }]
+        isFetching: false,
+        items: action.todos,
+        lastUpdated: action.receivedAt
+      };
+    }
+    case RECEIVE_TODOS_ERROR: {
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error
       };
     }
     case TOGGLE_TODO: {
@@ -29,8 +42,8 @@ export const todos = (state = initialState, action) => {
 
       return {
         ...state,
-        allTodos: [
-          ...state.allTodos.filter(t => t.id !== todo.id),
+        items: [
+          ...state.items.filter(t => t.id !== todo.id),
           { id: todo.id, text: todo.text, completed: !todo.completed }
         ].sort((a, b) => a.id - b.id)
       };

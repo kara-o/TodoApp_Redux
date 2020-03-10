@@ -1,43 +1,39 @@
 import React, { useEffect } from 'react';
 import Todo from './Todo';
-import { setTodos } from '../actions/actions';
+import { fetchTodos } from '../actions/actions';
 
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
   const { todos } = state;
   return {
-    todosById: todos.todosById,
-    orderedIds: todos.orderedIds,
-    allTodos: todos.allTodos
+    items: todos.items
   };
 };
 
 const TodoList = props => {
-  const { allTodos } = props;
+  const { items } = props;
 
-  const getTodos = async () => {
-    try {
-      const response = await fetch('/api/todos');
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('There was an error fetching all todos');
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getTodos = async () => {
+  //   try {
+  //     const response = await fetch('/api/todos');
+  //     if (response.ok) {
+  //       return response.json();
+  //     } else {
+  //       throw new Error('There was an error fetching all todos');
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getTodos().then(res => {
-      props.setTodos(res);
-    });
-  }, []);
+  // useEffect(() => {
+  //   props.fetchTodos();
+  // }, []);
 
   const displayTodos = () => {
-    if (allTodos.length > 0) {
-      return allTodos.map(todo => {
+    if (items.length > 0) {
+      return items.map(todo => {
         return <Todo key={todo.id} todo={todo} />;
       });
     } else return null;
@@ -50,4 +46,4 @@ const TodoList = props => {
   );
 };
 
-export default connect(mapStateToProps, { setTodos })(TodoList);
+export default connect(mapStateToProps, { fetchTodos })(TodoList);
