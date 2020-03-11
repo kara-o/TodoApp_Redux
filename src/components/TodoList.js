@@ -14,23 +14,6 @@ const mapStateToProps = state => {
 const TodoList = props => {
   const { items } = props;
 
-  // const getTodos = async () => {
-  //   try {
-  //     const response = await fetch('/api/todos');
-  //     if (response.ok) {
-  //       return response.json();
-  //     } else {
-  //       throw new Error('There was an error fetching all todos');
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   props.fetchTodos();
-  // }, []);
-
   const displayTodos = () => {
     if (items.length > 0) {
       return items.map(todo => {

@@ -22,7 +22,6 @@ export const requestTodos = () => {
 };
 
 export const receiveTodos = json => {
-  console.log(json);
   return {
     type: actionTypes.RECEIVE_TODOS,
     todos: json,
@@ -50,7 +49,6 @@ export const fetchTodos = () => {
     return fetch(`/api/todos`)
       .then(res => res.json())
       .then(json => {
-        console.log(json);
         dispatch(receiveTodos(json));
       });
   };

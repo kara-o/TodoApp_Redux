@@ -38,7 +38,7 @@ export const todos = (state = initialState, action) => {
       };
     }
     case TOGGLE_TODO: {
-      const { todo } = action.payload;
+      const { todo } = action;
 
       return {
         ...state,
