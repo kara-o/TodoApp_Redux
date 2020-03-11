@@ -3,7 +3,9 @@ import {
   REQUEST_TODOS,
   RECEIVE_TODOS,
   RECEIVE_TODOS_ERROR,
-  CREATE_TODO
+  REQUEST_CREATE_TODO,
+  RECEIVE_CREATED_TODO,
+  RECEIVE_CREATED_TODO_ERROR
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -13,9 +15,6 @@ const initialState = {
 
 export const todos = (state = initialState, action) => {
   switch (action.type) {
-    case CREATE_TODO: {
-      return null;
-    }
     case REQUEST_TODOS: {
       return {
         ...state,
@@ -31,6 +30,29 @@ export const todos = (state = initialState, action) => {
       };
     }
     case RECEIVE_TODOS_ERROR: {
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error
+      };
+    }
+    case REQUEST_CREATE_TODO: {
+      return {
+        ...state,
+        isFetching: true
+      };
+    }
+    case RECEIVE_CREATED_TODO: {
+      return {
+        ...state,
+        isFetching: false,
+        items: [
+          ...state.items,
+          { id: action.id, text: action.text, completed: false }
+        ]
+      };
+    }
+    case RECEIVE_CREATED_TODO_ERROR: {
       return {
         ...state,
         isFetching: false,

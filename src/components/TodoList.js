@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Todo from './Todo';
 import { fetchTodos } from '../actions/actions';
 
@@ -7,12 +7,13 @@ import { connect } from 'react-redux';
 const mapStateToProps = state => {
   const { todos } = state;
   return {
-    items: todos.items
+    items: todos.items,
+    isFetching: todos.isFetching
   };
 };
 
 const TodoList = props => {
-  const { items } = props;
+  const { items, isFetching } = props;
 
   const displayTodos = () => {
     if (items.length > 0) {
@@ -22,11 +23,11 @@ const TodoList = props => {
     } else return null;
   };
 
-  return (
-    <>
-      <ul>{displayTodos()}</ul>
-    </>
-  );
+  const loading = () => {
+    return <p>Loading...</p>;
+  };
+
+  return <>{isFetching ? loading() : <ul>{displayTodos()}</ul>}</>;
 };
 
 export default connect(mapStateToProps, { fetchTodos })(TodoList);

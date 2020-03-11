@@ -37,9 +37,13 @@ const Todo = props => {
     toggle().then(props.toggleTodo());
   };
 
+  const capitalizedFirstLetter = text => {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
+
   return (
     <li>
-      {todo.text}
+      {capitalizedFirstLetter(todo.text)}
       <input type='checkbox' checked={todo.completed} onChange={handleToggle} />
     </li>
   );

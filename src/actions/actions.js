@@ -1,10 +1,44 @@
 import * as actionTypes from './actionTypes';
 
-export const createTodo = text => {
-  console.log('here in create!', text);
+export const postTodo = text => {
+  const config = {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      text
+    })
+  };
+  return dispatch => {
+    dispatch(requestCreateTodo());
+    return fetch(`/api/todos`, config).then(res =>
+      res.json().then(json => {
+        dispatch(receiveCreatedTodo(json, text));
+      })
+    );
+  };
+};
+
+export const requestCreateTodo = () => {
   return {
-    type: actionTypes.CREATE_TODO,
+    type: actionTypes.REQUEST_CREATE_TODO
+  };
+};
+
+export const receiveCreatedTodo = (id, text) => {
+  return {
+    type: actionTypes.RECEIVE_CREATED_TODO,
+    id,
     text
+  };
+};
+
+export const receiveCreatedTodoError = error => {
+  return {
+    type: actionTypes.RECEIVE_CREATED_TODO_ERROR,
+    error
   };
 };
 
@@ -45,7 +79,7 @@ export const selectFilter = filter => {
 
 export const fetchTodos = () => {
   return dispatch => {
-    dispatch(requestTodos);
+    dispatch(requestTodos());
     return fetch(`/api/todos`)
       .then(res => res.json())
       .then(json => {
