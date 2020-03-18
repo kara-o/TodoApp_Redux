@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { postTodo } from '../actions/actions';
+import { postTodo } from '../actions/todos';
 
 const AddTodo = props => {
   const [todoText, setTodoText] = useState('');

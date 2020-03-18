@@ -1,6 +1,6 @@
 import React from 'react';
 import Todo from './Todo';
-import { fetchTodos } from '../actions/actions';
+import { fetchTodos } from '../actions/todos';
 
 import { connect } from 'react-redux';
 

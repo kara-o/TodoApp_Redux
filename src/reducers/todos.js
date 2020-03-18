@@ -1,12 +1,4 @@
-import {
-  TOGGLE_TODO,
-  REQUEST_TODOS,
-  RECEIVE_TODOS,
-  RECEIVE_TODOS_ERROR,
-  REQUEST_CREATE_TODO,
-  RECEIVE_CREATED_TODO,
-  RECEIVE_CREATED_TODO_ERROR
-} from '../actions/actionTypes';
+import { todoActions } from '../actions/actionTypes';
 
 const initialState = {
   isFetching: false,
@@ -15,13 +7,13 @@ const initialState = {
 
 export const todos = (state = initialState, action) => {
   switch (action.type) {
-    case REQUEST_TODOS: {
+    case todoActions.REQUEST_TODOS: {
       return {
         ...state,
         isFetching: true
       };
     }
-    case RECEIVE_TODOS: {
+    case todoActions.RECEIVE_TODOS: {
       return {
         ...state,
         isFetching: false,
@@ -29,20 +21,20 @@ export const todos = (state = initialState, action) => {
         lastUpdated: action.receivedAt
       };
     }
-    case RECEIVE_TODOS_ERROR: {
+    case todoActions.RECEIVE_TODOS_ERROR: {
       return {
         ...state,
         isFetching: false,
         error: action.error
       };
     }
-    case REQUEST_CREATE_TODO: {
+    case todoActions.REQUEST_CREATE_TODO: {
       return {
         ...state,
         isFetching: true
       };
     }
-    case RECEIVE_CREATED_TODO: {
+    case todoActions.RECEIVE_CREATED_TODO: {
       return {
         ...state,
         isFetching: false,
@@ -52,14 +44,14 @@ export const todos = (state = initialState, action) => {
         ]
       };
     }
-    case RECEIVE_CREATED_TODO_ERROR: {
+    case todoActions.RECEIVE_CREATED_TODO_ERROR: {
       return {
         ...state,
         isFetching: false,
         error: action.error
       };
     }
-    case TOGGLE_TODO: {
+    case todoActions.TOGGLE_TODO: {
       const { todo } = action;
 
       return {
