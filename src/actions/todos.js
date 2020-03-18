@@ -1,4 +1,4 @@
-import * as actionTypes from './actionTypes';
+import { todoActions } from './actionTypes';
 
 export const postTodo = text => {
   const config = {
@@ -23,13 +23,13 @@ export const postTodo = text => {
 
 export const requestCreateTodo = () => {
   return {
-    type: actionTypes.REQUEST_CREATE_TODO
+    type: todoActions.REQUEST_CREATE_TODO
   };
 };
 
 export const receiveCreatedTodo = (id, text) => {
   return {
-    type: actionTypes.RECEIVE_CREATED_TODO,
+    type: todoActions.RECEIVE_CREATED_TODO,
     id,
     text
   };
@@ -37,27 +37,27 @@ export const receiveCreatedTodo = (id, text) => {
 
 export const receiveCreatedTodoError = error => {
   return {
-    type: actionTypes.RECEIVE_CREATED_TODO_ERROR,
+    type: todoActions.RECEIVE_CREATED_TODO_ERROR,
     error
   };
 };
 
 export const toggleTodo = todo => {
   return {
-    type: actionTypes.TOGGLE_TODO,
+    type: todoActions.TOGGLE_TODO,
     todo
   };
 };
 
 export const requestTodos = () => {
   return {
-    type: actionTypes.REQUEST_TODOS
+    type: todoActions.REQUEST_TODOS
   };
 };
 
 export const receiveTodos = json => {
   return {
-    type: actionTypes.RECEIVE_TODOS,
+    type: todoActions.RECEIVE_TODOS,
     todos: json,
     receivedAt: Date.now()
   };
@@ -65,15 +65,8 @@ export const receiveTodos = json => {
 
 export const receiveTodosError = error => {
   return {
-    type: actionTypes.RECEIVE_TODOS_ERROR,
+    type: todoActions.RECEIVE_TODOS_ERROR,
     error
-  };
-};
-
-export const selectFilter = filter => {
-  return {
-    type: actionTypes.SELECT_FILTER,
-    filter
   };
 };
 
