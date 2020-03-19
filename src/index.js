@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
+import SignUpUser from './components/SignUpUser';
 // import { fetchTodos } from './actions/todos';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -23,7 +24,8 @@ const rootElement = document.getElementById('root');
 render(
   <Provider store={store}>
     <Router>
-      <Route path='/' component={App} />
+      <Route path='/signup' component={SignUpUser} />
+      <Route exact path='/' component={App} />
     </Router>
   </Provider>,
   rootElement

@@ -2,7 +2,7 @@ import { userActions } from '../actions/actionTypes';
 
 const initialState = {
   isFetching: false,
-  items: []
+  users: []
 };
 
 export const users = (state = initialState, action) => {
@@ -37,7 +37,7 @@ export const users = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        items: [...state.items, { id: action.id }]
+        users: [...state.users, { id: action.id }]
       };
     }
     case userActions.RECEIVE_CREATED_USER_ERROR: {

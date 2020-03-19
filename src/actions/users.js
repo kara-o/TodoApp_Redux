@@ -16,7 +16,7 @@ export const postUser = (username, email) => {
     dispatch(requestCreateUser());
     return fetch(`/api/users`, config).then(res =>
       res.json().then(json => {
-        dispatch(receiveCreatedUser(json, text));
+        dispatch(receiveCreatedUser(json));
       })
     );
   };
