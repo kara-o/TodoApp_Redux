@@ -1,21 +1,21 @@
-import { todoActions } from './actionTypes';
+import { todoActions } from "./actionTypes";
 
-export const postTodo = text => {
+export const postTodo = (text) => {
   const config = {
-    method: 'POST',
+    method: "POST",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      text
-    })
+      text,
+    }),
   };
-  return dispatch => {
+  return (dispatch) => {
     dispatch(requestCreateTodo());
-    return fetch(`/api/todos`, config).then(res =>
-      res.json().then(json => {
-        dispatch(receiveCreatedTodo(json, text));
+    return fetch(`/api/todos`, config).then((res) =>
+      res.json().then((json) => {
+        dispatch(receiveCreatedTodo(json.id, text));
       })
     );
   };
@@ -23,7 +23,7 @@ export const postTodo = text => {
 
 export const requestCreateTodo = () => {
   return {
-    type: todoActions.REQUEST_CREATE_TODO
+    type: todoActions.REQUEST_CREATE_TODO,
   };
 };
 
@@ -31,51 +31,51 @@ export const receiveCreatedTodo = (id, text) => {
   return {
     type: todoActions.RECEIVE_CREATED_TODO,
     id,
-    text
+    text,
   };
 };
 
-export const receiveCreatedTodoError = error => {
+export const receiveCreatedTodoError = (error) => {
   return {
     type: todoActions.RECEIVE_CREATED_TODO_ERROR,
-    error
+    error,
   };
 };
 
-export const toggleTodo = todo => {
+export const toggleTodo = (todo) => {
   return {
     type: todoActions.TOGGLE_TODO,
-    todo
+    todo,
   };
 };
 
 export const requestTodos = () => {
   return {
-    type: todoActions.REQUEST_TODOS
+    type: todoActions.REQUEST_TODOS,
   };
 };
 
-export const receiveTodos = json => {
+export const receiveTodos = (json) => {
   return {
     type: todoActions.RECEIVE_TODOS,
     todos: json,
-    receivedAt: Date.now()
+    receivedAt: Date.now(),
   };
 };
 
-export const receiveTodosError = error => {
+export const receiveTodosError = (error) => {
   return {
     type: todoActions.RECEIVE_TODOS_ERROR,
-    error
+    error,
   };
 };
 
 export const fetchTodos = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(requestTodos());
     return fetch(`/api/todos`)
-      .then(res => res.json())
-      .then(json => {
+      .then((res) => res.json())
+      .then((json) => {
         dispatch(receiveTodos(json));
       });
   };

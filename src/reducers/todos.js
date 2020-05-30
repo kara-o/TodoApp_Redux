@@ -1,8 +1,8 @@
-import { todoActions } from '../actions/actionTypes';
+import { todoActions } from "../actions/actionTypes";
 
 const initialState = {
   isFetching: false,
-  items: []
+  items: [],
 };
 
 export const todos = (state = initialState, action) => {
@@ -10,7 +10,7 @@ export const todos = (state = initialState, action) => {
     case todoActions.REQUEST_TODOS: {
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     }
     case todoActions.RECEIVE_TODOS: {
@@ -18,20 +18,20 @@ export const todos = (state = initialState, action) => {
         ...state,
         isFetching: false,
         items: action.todos,
-        lastUpdated: action.receivedAt
+        lastUpdated: action.receivedAt,
       };
     }
     case todoActions.RECEIVE_TODOS_ERROR: {
       return {
         ...state,
         isFetching: false,
-        error: action.error
+        error: action.error,
       };
     }
     case todoActions.REQUEST_CREATE_TODO: {
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     }
     case todoActions.RECEIVE_CREATED_TODO: {
@@ -40,15 +40,15 @@ export const todos = (state = initialState, action) => {
         isFetching: false,
         items: [
           ...state.items,
-          { id: action.id, text: action.text, completed: false }
-        ]
+          { id: action.id, text: action.text, completed: false },
+        ],
       };
     }
     case todoActions.RECEIVE_CREATED_TODO_ERROR: {
       return {
         ...state,
         isFetching: false,
-        error: action.error
+        error: action.error,
       };
     }
     case todoActions.TOGGLE_TODO: {
@@ -57,9 +57,9 @@ export const todos = (state = initialState, action) => {
       return {
         ...state,
         items: [
-          ...state.items.filter(t => t.id !== todo.id),
-          { id: todo.id, text: todo.text, completed: !todo.completed }
-        ].sort((a, b) => a.id - b.id)
+          ...state.items.filter((t) => t.id !== todo.id),
+          { id: todo.id, text: todo.text, completed: !todo.completed },
+        ].sort((a, b) => a.id - b.id),
       };
     }
     default:
