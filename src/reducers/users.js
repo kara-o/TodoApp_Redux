@@ -1,50 +1,51 @@
-import { userActions } from '../actions/actionTypes';
+import { userActions } from "../actions/actionTypes";
 
 const initialState = {
   isFetching: false,
-  users: []
+  user: null,
+  error: null,
 };
 
 export const users = (state = initialState, action) => {
   switch (action.type) {
-    case userActions.REQUEST_USERS: {
-      return {
-        ...state,
-        isFetching: true
-      };
-    }
-    case userActions.RECEIVE_USERS: {
-      return {
-        ...state,
-        isFetching: false,
-        items: action.users
-      };
-    }
-    case userActions.RECEIVE_USERS_ERROR: {
-      return {
-        ...state,
-        isFetching: false,
-        error: action.error
-      };
-    }
     case userActions.REQUEST_CREATE_USER: {
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     }
     case userActions.RECEIVE_CREATED_USER: {
       return {
         ...state,
         isFetching: false,
-        users: [...state.users, { id: action.id }]
+        user: { id: action.id },
       };
     }
     case userActions.RECEIVE_CREATED_USER_ERROR: {
       return {
         ...state,
         isFetching: false,
-        error: action.error
+        error: action.error,
+      };
+    }
+    case userActions.REQUEST_LOGIN_USER: {
+      return {
+        ...state,
+        isFetching: true,
+      };
+    }
+    case userActions.RECEIVE_LOGGED_IN_USER: {
+      return {
+        ...state,
+        isFetching: false,
+        user: action.user,
+      };
+    }
+    case userActions.RECEIVE_LOGGED_IN_USER_ERROR: {
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
       };
     }
     default:

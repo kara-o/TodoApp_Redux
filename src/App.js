@@ -2,59 +2,25 @@ import React, { useState } from "react";
 import AddTodo from "./components/AddTodo";
 import TodoList from "./components/TodoList";
 import LoginUser from "./components/LoginUser";
+import { loginUser } from "./actions/users";
 
-const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+import { connect } from "react-redux";
 
-  const getTodos = async (id) => {
-    try {
-      const response = await fetch(`/api/todos?user_id=${id}`);
-      if (response.ok) {
-        const todos = await response.json();
-        console.log("todos: ", todos);
-        return todos;
-      } else {
-        throw new Error("There was an error getting the user's todos.");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+const mapStateToProps = (state) => {
+  const { users } = state;
+  return {
+    user: users.user,
+    isFetching: users.isFetching,
   };
+};
 
-  const loginUser = async ({ username, email }) => {
-    try {
-      const config = {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          email,
-        }),
-      };
-      const response = await fetch(`/api/users/login`, config);
-      if (response.ok) {
-        const user = await response.json();
-        console.log("user: ", user);
-
-        const todos = await getTodos(user.id);
-
-        setLoggedIn({ user, todos });
-      } else {
-        throw new Error("There was an error logging in.");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+const App = (props) => {
+  const { user, isFetching } = props;
   return (
     <div>
       {loggedIn ? (
         <>
-          <h1>Welcome, {loggedIn.username}.</h1>
+          <h1>Welcome, {loggedIn.user.username}.</h1>
           <AddTodo />
           <TodoList />
         </>
@@ -65,4 +31,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default connect(mapStateToProps, { loginUser })(App);

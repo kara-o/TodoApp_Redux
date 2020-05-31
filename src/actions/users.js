@@ -1,21 +1,21 @@
-import { userActions } from './actionTypes';
+import { userActions } from "./actionTypes";
 
 export const postUser = (username, email) => {
   const config = {
-    method: 'POST',
+    method: "POST",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       username,
-      email
-    })
+      email,
+    }),
   };
-  return dispatch => {
+  return (dispatch) => {
     dispatch(requestCreateUser());
-    return fetch(`/api/users`, config).then(res =>
-      res.json().then(json => {
+    return fetch(`/api/users`, config).then((res) =>
+      res.json().then((json) => {
         dispatch(receiveCreatedUser(json));
       })
     );
@@ -24,51 +24,68 @@ export const postUser = (username, email) => {
 
 export const requestCreateUser = () => {
   return {
-    type: userActions.REQUEST_CREATE_USER
+    type: userActions.REQUEST_CREATE_USER,
   };
 };
 
-export const receiveCreatedUser = id => {
+export const receiveCreatedUser = (id) => {
   return {
     type: userActions.RECEIVE_CREATED_USER,
-    id
+    id,
   };
 };
 
-export const receiveCreatedUserError = error => {
+export const receiveCreatedUserError = (error) => {
   return {
     type: userActions.RECEIVE_CREATED_USER_ERROR,
-    error
+    error,
   };
 };
 
-export const fetchUsers = () => {
-  return dispatch => {
-    dispatch(requestUsers());
-    return fetch(`/api/users`)
-      .then(res => res.json())
-      .then(json => {
-        dispatch(receiveUsers(json));
+export const loginUser = (username, email) => {
+  const config = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username,
+      email,
+    }),
+  };
+  return (dispatch) => {
+    dispatch(requestLoginUser());
+    return fetch(`/api/users/login`, config)
+      .then((res) => res.json())
+      .then((json) => {
+        dispatch(receiveLoggedInUser(json));
       });
   };
 };
 
-export const requestUsers = () => {
+export const requestLoginUser = () => {
   return {
-    type: userActions.REQUEST_USERS
+    type: userActions.REQUEST_LOGIN_USER,
   };
 };
 
-export const receiveUsers = json => {
+export const receiveLoggedInUser = (user) => {
   return {
-    type: userActions.RECEIVE_USERS,
-    users: json
+    type: userActions.RECEIVE_LOGGED_IN_USER,
+    user,
   };
 };
 
-export const receiveUsersError = error => {
+export const receiveLoggedInUserError = (error) => {
   return {
-    type: userActions.RECEIVE_USERS_ERROR,
-    error
+    type: userActions.RECEIVE_LOGGED_IN_USER_ERROR,
+    error,
+  };
+};
+
+export const checkLoggedInStatus = () => {
+  return {
+    type: userActions.CHECK_LOGGED_IN_STATUS,
   };
 };

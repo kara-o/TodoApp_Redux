@@ -3,6 +3,7 @@ import { todoActions } from "../actions/actionTypes";
 const initialState = {
   isFetching: false,
   items: [],
+  error: null,
 };
 
 export const todos = (state = initialState, action) => {
