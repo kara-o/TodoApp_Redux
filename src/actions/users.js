@@ -83,9 +83,3 @@ export const receiveLoggedInUserError = (error) => {
     error,
   };
 };
-
-export const checkLoggedInStatus = () => {
-  return {
-    type: userActions.CHECK_LOGGED_IN_STATUS,
-  };
-};

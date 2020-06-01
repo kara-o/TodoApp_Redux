@@ -3,6 +3,7 @@ import AddTodo from "./components/AddTodo";
 import TodoList from "./components/TodoList";
 import LoginUser from "./components/LoginUser";
 import { loginUser } from "./actions/users";
+import Loading from "./components/reusable/Loading";
 
 import { connect } from "react-redux";
 
@@ -18,14 +19,18 @@ const App = (props) => {
   const { user, isFetching } = props;
   return (
     <div>
-      {loggedIn ? (
-        <>
-          <h1>Welcome, {loggedIn.user.username}.</h1>
-          <AddTodo />
-          <TodoList />
-        </>
+      {!isFetching ? (
+        user ? (
+          <>
+            <h1>Welcome, {user.username}.</h1>
+            <AddTodo />
+            <TodoList />
+          </>
+        ) : (
+          <LoginUser loginUser={loginUser} />
+        )
       ) : (
-        <LoginUser loginUser={loginUser} />
+        <Loading />
       )}
     </div>
   );
