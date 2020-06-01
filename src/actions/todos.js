@@ -1,6 +1,6 @@
 import { todoActions } from "./actionTypes";
 
-export const postTodo = (text) => {
+export const postTodo = (text, userId) => {
   const config = {
     method: "POST",
     headers: {
@@ -9,6 +9,7 @@ export const postTodo = (text) => {
     },
     body: JSON.stringify({
       text,
+      userId,
     }),
   };
   return (dispatch) => {

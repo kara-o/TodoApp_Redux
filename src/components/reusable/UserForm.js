@@ -1,41 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const UserForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
-    username: '',
-    email: ''
+    username: "",
+    email: "",
   });
 
   return (
     <form
-      onSubmit={e => {
+      onSubmit={(e) => {
+        console.log("submit!");
         e.preventDefault();
         onSubmit(formData);
       }}
     >
       Username:
       <input
-        type='text'
+        type="text"
         value={formData.username}
-        onChange={e =>
+        onChange={(e) =>
           setFormData({
             ...formData,
-            username: e.target.value
+            username: e.target.value,
           })
         }
       />
       Email:
       <input
-        type='text'
+        type="text"
         value={formData.email}
-        onChange={e =>
+        onChange={(e) =>
           setFormData({
             ...formData,
-            email: e.target.value
+            email: e.target.value,
           })
         }
       />
-      <input type='submit' value='Submit' />
+      <input type="submit" value="Submit" />
     </form>
   );
 };

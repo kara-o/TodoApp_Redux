@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import AddTodo from "./components/AddTodo";
 import TodoList from "./components/TodoList";
 import LoginUser from "./components/LoginUser";
-import { loginUser } from "./actions/users";
 import Loading from "./components/reusable/Loading";
 
 import { connect } from "react-redux";
@@ -27,7 +26,7 @@ const App = (props) => {
             <TodoList />
           </>
         ) : (
-          <LoginUser loginUser={loginUser} />
+          <LoginUser />
         )
       ) : (
         <Loading />
@@ -36,4 +35,4 @@ const App = (props) => {
   );
 };
 
-export default connect(mapStateToProps, { loginUser })(App);
+export default connect(mapStateToProps)(App);
