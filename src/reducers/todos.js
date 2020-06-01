@@ -19,7 +19,6 @@ export const todos = (state = initialState, action) => {
         ...state,
         isFetching: false,
         items: action.todos,
-        lastUpdated: action.receivedAt,
       };
     }
     case todoActions.RECEIVE_TODOS_ERROR: {

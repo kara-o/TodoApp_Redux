@@ -1,12 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import UserForm from "./reusable/UserForm";
-import { loginUser } from "../actions/users";
+import { loginUserAndGetTheirPosts } from "../actions/users";
 import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+  const { users } = state;
+  return {
+    user: users.user,
+    isFetching: users.isFetching,
+  };
+};
 
 const LoginUser = (props) => {
   const handleSubmit = ({ username, email }) => {
-    props.loginUser(username, email);
+    props.loginUserAndGetTheirPosts(username, email);
   };
 
   return (
@@ -17,4 +25,6 @@ const LoginUser = (props) => {
   );
 };
 
-export default connect(null, { loginUser })(LoginUser);
+export default connect(mapStateToProps, { loginUserAndGetTheirPosts })(
+  LoginUser
+);

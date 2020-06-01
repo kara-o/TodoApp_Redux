@@ -60,7 +60,6 @@ export const receiveTodos = (json) => {
   return {
     type: todoActions.RECEIVE_TODOS,
     todos: json,
-    receivedAt: Date.now(),
   };
 };
 
@@ -71,10 +70,10 @@ export const receiveTodosError = (error) => {
   };
 };
 
-export const fetchTodos = () => {
+export const fetchTodos = (userId) => {
   return (dispatch) => {
     dispatch(requestTodos());
-    return fetch(`/api/todos`)
+    return fetch(`/api/todos?user_id=${userId}`)
       .then((res) => res.json())
       .then((json) => {
         dispatch(receiveTodos(json));

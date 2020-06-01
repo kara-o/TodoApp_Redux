@@ -1,4 +1,5 @@
 import { userActions } from "./actionTypes";
+import { fetchTodos } from "./todos";
 
 export const postUser = (username, email) => {
   const config = {
@@ -81,5 +82,14 @@ export const receiveLoggedInUserError = (error) => {
   return {
     type: userActions.RECEIVE_LOGGED_IN_USER_ERROR,
     error,
+  };
+};
+
+export const loginUserAndGetTheirPosts = (username, email) => {
+  return (dispatch, getState) => {
+    return dispatch(loginUser(username, email)).then(() => {
+      const loggedInUserId = getState().users.user.id;
+      return dispatch(fetchTodos(loggedInUserId));
+    });
   };
 };

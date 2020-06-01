@@ -9,7 +9,6 @@ const UserForm = ({ onSubmit }) => {
   return (
     <form
       onSubmit={(e) => {
-        console.log("submit!");
         e.preventDefault();
         onSubmit(formData);
       }}
