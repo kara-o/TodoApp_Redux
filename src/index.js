@@ -16,7 +16,12 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const persistedState = {
   users: {
     isFetching: false,
-    user: loadState(),
+    user: loadState().user,
+    error: null,
+  },
+  todos: {
+    isFetching: false,
+    items: loadState().items,
     error: null,
   },
 };
@@ -34,6 +39,7 @@ store.subscribe(
     //only write to local storage at most 1/sec, using throttle wrapper
     saveState({
       user: store.getState().users.user,
+      items: store.getState().todos.items,
     });
   }, 1000)
 );
