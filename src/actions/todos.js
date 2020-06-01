@@ -80,3 +80,33 @@ export const fetchTodos = (userId) => {
       });
   };
 };
+
+export const deleteTodo = (todoId) => {
+  //TODO error handling
+  const config = {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  };
+  return (dispatch) => {
+    dispatch(requestDeleteTodo());
+    return fetch(`/api/todos/${todoId}`, config).then(
+      dispatch(receiveDeleteTodoSuccess(todoId))
+    );
+  };
+};
+
+export const requestDeleteTodo = () => {
+  return {
+    type: todoActions.REQUEST_DELETE_TODO,
+  };
+};
+
+export const receiveDeleteTodoSuccess = (id) => {
+  return {
+    type: todoActions.RECEIVE_DELETE_TODO_SUCCESS,
+    id,
+  };
+};

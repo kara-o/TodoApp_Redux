@@ -1,6 +1,20 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { postTodo } from "../actions/todos";
+import { createUseStyles } from "react-jss";
+
+const useStyles = createUseStyles({
+  outerContainer: {
+    margin: "20px",
+    padding: "20px",
+  },
+  input: {
+    marginRigh: "10px",
+  },
+  button: {
+    marginLeft: "10px",
+  },
+});
 
 const mapStateToProps = (state) => {
   const { users } = state;
@@ -11,6 +25,7 @@ const mapStateToProps = (state) => {
 
 const AddTodo = (props) => {
   const [todoText, setTodoText] = useState("");
+  const classes = useStyles();
 
   const handleSubmitTodo = () => {
     setTodoText("");
@@ -18,13 +33,19 @@ const AddTodo = (props) => {
   };
 
   return (
-    <div>
+    <div className={classes.outerContainer}>
       <input
+        className={classes.input}
         type="text"
         value={todoText}
         onChange={(e) => setTodoText(e.target.value)}
       />
-      <input type="submit" value="Add Todo" onClick={handleSubmitTodo} />
+      <input
+        className={classes.button}
+        type="submit"
+        value="Add"
+        onClick={handleSubmitTodo}
+      />
     </div>
   );
 };

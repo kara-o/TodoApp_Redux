@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Todo from "./Todo";
 import Loading from "./reusable/Loading";
 
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
-  console.log("state in TodoList: ", state);
   const { todos } = state;
   return {
     items: todos.items,
@@ -14,17 +13,24 @@ const mapStateToProps = (state) => {
 };
 
 const TodoList = (props) => {
-  const { items, isFetching } = props;
+  const { items, isFetching, showDelete } = props;
 
   const displayTodos = () => {
     if (items.length > 0) {
       return items.map((todo) => {
-        return <Todo key={todo.id} todo={todo} />;
+        return (
+          <Todo
+            showDelete={showDelete}
+            key={todo.id}
+            name={todo.id}
+            todo={todo}
+          />
+        );
       });
     } else return null;
   };
 
-  return <>{isFetching ? <Loading /> : <ul>{displayTodos()}</ul>}</>;
+  return <div>{isFetching ? <Loading /> : <ul>{displayTodos()}</ul>}</div>;
 };
 
 export default connect(mapStateToProps)(TodoList);

@@ -62,6 +62,19 @@ export const todos = (state = initialState, action) => {
         ].sort((a, b) => a.id - b.id),
       };
     }
+    case todoActions.REQUEST_DELETE_TODO: {
+      return {
+        ...state,
+        isFetching: true,
+      };
+    }
+    case todoActions.RECEIVE_DELETE_TODO_SUCCESS: {
+      return {
+        ...state,
+        isFetching: false,
+        items: [...state.items.filter((t) => t.id !== action.id)],
+      };
+    }
     default:
       return state;
   }

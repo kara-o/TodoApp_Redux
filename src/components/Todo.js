@@ -1,16 +1,44 @@
 import React from "react";
-import { toggleTodo } from "../actions/todos";
+import { toggleTodo, deleteTodo } from "../actions/todos";
+import { createUseStyles } from "react-jss";
 
 import { connect } from "react-redux";
 
+const useStyles = createUseStyles({
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  text: {
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
+  complete: {
+    textDecoration: "line-through",
+  },
+  incomplete: {
+    textDecoration: "none",
+  },
+  deleteBtn: {
+    height: "25%",
+    margin: "10px",
+  },
+});
+
 const mapDispatchToProps = (dispatch, ownProps) => ({
+  //TODO move to async Redux thunk actions
   toggleTodo: () => dispatch(toggleTodo(ownProps.todo)),
+  deleteTodo: () => dispatch(deleteTodo(ownProps.todo.id)),
 });
 
 const Todo = (props) => {
-  const { todo } = props;
+  const { todo, showDelete } = props;
+  const classes = useStyles();
 
   const toggle = async () => {
+    //TODO change to be async redux call
     try {
       const config = {
         method: "PATCH",
@@ -42,11 +70,25 @@ const Todo = (props) => {
   };
 
   return (
-    <li>
-      <span style={todo.completed ? { textDecoration: "line-through" } : null}>
+    <li className={classes.container}>
+      <p
+        className={
+          (todo.completed ? classes.complete : classes.incomplete) +
+          " " +
+          classes.text
+        }
+        onClick={!showDelete ? handleToggle : null}
+      >
         {capitalizedFirstLetter(todo.text)}
-      </span>
-      <input type="checkbox" checked={todo.completed} onChange={handleToggle} />
+      </p>
+      {showDelete ? (
+        <button
+          onClick={() => props.deleteTodo()}
+          className={classes.deleteBtn}
+        >
+          X
+        </button>
+      ) : null}
     </li>
   );
 };
