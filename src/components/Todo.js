@@ -8,11 +8,10 @@ const useStyles = createUseStyles({
   container: {
     display: "flex",
     flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
-  },
-  text: {
     "&:hover": {
-      cursor: "pointer",
+      backgroundColor: "#C9C5CB",
     },
   },
   complete: {
@@ -24,6 +23,11 @@ const useStyles = createUseStyles({
   deleteBtn: {
     height: "25%",
     margin: "10px",
+  },
+  hover: {
+    "&:hover": {
+      cursor: "pointer",
+    },
   },
 });
 
@@ -70,14 +74,20 @@ const Todo = (props) => {
   };
 
   return (
-    <li className={classes.container}>
+    <li
+      className={
+        !showDelete
+          ? classes.hover + " " + classes.container
+          : classes.container
+      }
+      onClick={!showDelete ? handleToggle : null}
+    >
       <p
         className={
           (todo.completed ? classes.complete : classes.incomplete) +
           " " +
           classes.text
         }
-        onClick={!showDelete ? handleToggle : null}
       >
         {capitalizedFirstLetter(todo.text)}
       </p>

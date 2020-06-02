@@ -26,18 +26,29 @@ const useStyles = createUseStyles({
       gridTemplateColumns: "1fr",
       justifyItems: "center",
     },
-    ".title-fantasy-font": {
-      fontFamily: "Chalkduster, fantasy",
+    button: {
+      "&:hover": {
+        cursor: "pointer",
+      },
     },
   },
   mainContainer: {
     gridRow: "2/3",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   footer: {
     gridRow: "3/4",
     fontSize: "10px",
     width: "100%",
     textAlign: "center",
+  },
+  buttonsContainer: {
+    display: "flex",
+    flexFlow: "row wrap",
+    justifyContent: "space-evenly",
+    width: "300px",
   },
 });
 
@@ -62,7 +73,7 @@ const App = (props) => {
           user ? (
             <>
               <h1>Welcome, {user.username}.</h1>
-              <div>
+              <div className={classes.buttonsContainer}>
                 <button
                   onClick={() => {
                     setShowAdd(!showAdd);

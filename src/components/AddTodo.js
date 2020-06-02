@@ -5,7 +5,6 @@ import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
   outerContainer: {
-    margin: "20px",
     padding: "20px",
   },
   input: {
