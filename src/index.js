@@ -49,7 +49,6 @@ const rootElement = document.getElementById("root");
 render(
   <Provider store={store}>
     <Router>
-      <Route path="/signup" component={SignUpUser} />
       <Route exact path="/" component={App} />
     </Router>
   </Provider>,

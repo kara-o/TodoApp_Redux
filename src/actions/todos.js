@@ -71,6 +71,7 @@ export const receiveTodosError = (error) => {
 };
 
 export const fetchTodos = (userId) => {
+  console.log("fetch todos with user id: ", userId);
   return (dispatch) => {
     dispatch(requestTodos());
     return fetch(`/api/todos?user_id=${userId}`)

@@ -48,6 +48,12 @@ export const users = (state = initialState, action) => {
         error: action.error,
       };
     }
+    case userActions.LOGOUT_USER: {
+      return {
+        ...state,
+        user: null,
+      };
+    }
     default:
       return state;
   }

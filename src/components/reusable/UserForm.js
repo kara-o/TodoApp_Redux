@@ -1,6 +1,22 @@
 import React, { useState } from "react";
+import { createUseStyles } from "react-jss";
+
+const useStyles = createUseStyles({
+  container: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  input: {
+    margin: "10px",
+    padding: "10px",
+  },
+});
 
 const UserForm = ({ onSubmit }) => {
+  const classes = useStyles();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -8,14 +24,16 @@ const UserForm = ({ onSubmit }) => {
 
   return (
     <form
+      className={classes.container}
       onSubmit={(e) => {
         e.preventDefault();
         onSubmit(formData);
       }}
     >
-      Username:
       <input
+        className={classes.input}
         type="text"
+        placeholder="Username"
         value={formData.username}
         onChange={(e) =>
           setFormData({
@@ -24,9 +42,10 @@ const UserForm = ({ onSubmit }) => {
           })
         }
       />
-      Email:
       <input
+        className={classes.input}
         type="text"
+        placeholder="Email"
         value={formData.email}
         onChange={(e) =>
           setFormData({
@@ -35,7 +54,7 @@ const UserForm = ({ onSubmit }) => {
           })
         }
       />
-      <input type="submit" value="Submit" />
+      <input className={classes.input} type="submit" value="Submit" />
     </form>
   );
 };

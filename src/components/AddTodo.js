@@ -5,10 +5,11 @@ import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
   outerContainer: {
-    padding: "20px",
+    padding: "20px 20px 0 20px",
   },
   input: {
     marginRigh: "10px",
+    padding: "5px",
   },
   button: {
     marginLeft: "10px",
@@ -39,12 +40,9 @@ const AddTodo = (props) => {
         value={todoText}
         onChange={(e) => setTodoText(e.target.value)}
       />
-      <input
-        className={classes.button}
-        type="submit"
-        value="Add"
-        onClick={handleSubmitTodo}
-      />
+      <button className={classes.button} onClick={handleSubmitTodo}>
+        Add
+      </button>
     </div>
   );
 };

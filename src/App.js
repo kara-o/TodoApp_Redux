@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import AddTodo from "./components/AddTodo";
 import TodoList from "./components/TodoList";
 import LoginUser from "./components/LoginUser";
+import SignUpUser from "./components/SignUpUser";
 import Loading from "./components/reusable/Loading";
+import { Footer, Navbar } from "./components/layout";
 import { connect } from "react-redux";
 import { createUseStyles } from "react-jss";
 
@@ -22,7 +24,7 @@ const useStyles = createUseStyles({
       marginRight: "auto",
       minHeight: "100vh",
       display: "grid",
-      gridTemplateRows: "50px 1fr 20px",
+      gridTemplateRows: "50px 1fr 100px",
       gridTemplateColumns: "1fr",
       justifyItems: "center",
     },
@@ -31,18 +33,20 @@ const useStyles = createUseStyles({
         cursor: "pointer",
       },
     },
+    a: {
+      color: "#565264",
+      textDecoration: "none",
+      "&:hover": {
+        cursor: "pointer",
+        fontWeight: "bold",
+      },
+    },
   },
   mainContainer: {
     gridRow: "2/3",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-  },
-  footer: {
-    gridRow: "3/4",
-    fontSize: "10px",
-    width: "100%",
-    textAlign: "center",
   },
   buttonsContainer: {
     display: "flex",
@@ -64,10 +68,12 @@ const App = (props) => {
   const { user, isFetching } = props;
   const [showAdd, setShowAdd] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
   const classes = useStyles();
 
   return (
     <>
+      {user ? <Navbar /> : null}
       <div className={classes.mainContainer}>
         {!isFetching ? (
           user ? (
@@ -94,16 +100,16 @@ const App = (props) => {
               {showAdd ? <AddTodo /> : null}
               <TodoList showDelete={showDelete} />
             </>
+          ) : !showSignUp ? (
+            <LoginUser handleLinkClick={() => setShowSignUp(true)} />
           ) : (
-            <LoginUser />
+            <SignUpUser handleLinkClick={() => setShowSignUp(false)} />
           )
         ) : (
           <Loading />
         )}
       </div>
-      <div className={classes.footer}>
-        <span className={classes.footerText}>My Simple Todo App | 2020</span>
-      </div>
+      <Footer />
     </>
   );
 };

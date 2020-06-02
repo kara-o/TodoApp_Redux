@@ -93,3 +93,9 @@ export const loginUserAndGetTheirPosts = (username, email) => {
     });
   };
 };
+
+export const logoutUser = () => {
+  return {
+    type: userActions.LOGOUT_USER,
+  };
+};
