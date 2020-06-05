@@ -10,6 +10,17 @@ import thunkMiddleware from "redux-thunk";
 import SignUpUser from "./components/SignUpUser";
 import { loadState, saveState } from "./localStorage";
 import throttle from "lodash/throttle";
+import { Auth0Provider } from "./react-auth0-spa";
+import config from "./auth_config.json";
+import history from "./utils/history";
+
+const onRedirectCallback = (appState) => {
+  history.push(
+    appState && appState.targetUrl
+      ? appState.targetUrl
+      : window.location.pathname
+  );
+};
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -32,8 +43,6 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunkMiddleware))
 );
 
-console.log("STORE: ", store.getState());
-
 store.subscribe(
   throttle(() => {
     //only write to local storage at most 1/sec, using throttle wrapper
@@ -47,10 +56,17 @@ store.subscribe(
 const rootElement = document.getElementById("root");
 
 render(
-  <Provider store={store}>
-    <Router>
-      <Route exact path="/" component={App} />
-    </Router>
-  </Provider>,
+  <Auth0Provider
+    domain={config.domain}
+    client_id={config.clientId}
+    redirect_uri={window.location.origin}
+    onRedirectCallback={onRedirectCallback}
+  >
+    <Provider store={store}>
+      <Router>
+        <Route exact path="/" component={App} />
+      </Router>
+    </Provider>
+  </Auth0Provider>,
   rootElement
 );

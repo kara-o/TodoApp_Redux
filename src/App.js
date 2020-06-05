@@ -7,7 +7,7 @@ import Loading from "./components/reusable/Loading";
 import { Footer, Navbar } from "./components/layout";
 import { connect } from "react-redux";
 import { createUseStyles } from "react-jss";
-import { useAuth0 } from "../../react-auth0-spa";
+import { useAuth0 } from "./react-auth0-spa";
 
 const useStyles = createUseStyles({
   "@global": {
@@ -58,30 +58,42 @@ const useStyles = createUseStyles({
 });
 
 const mapStateToProps = (state) => {
-  const { users } = state;
-  return {
-    user: users.user,
-    isFetching: users.isFetching,
-  };
+  // const { users, auth } = state;
+  // // const { user, isFetching } = users;
+  // const { isAuthenticated, errorMessage } = auth;
+  // return {
+  //   // user,
+  //   // isFetching,
+  //   isAuthenticated,
+  //   errorMessage,
+  // };
 };
 
 const App = (props) => {
-  const { user, isFetching } = props;
+  // const { user, isFetching } = props;
   const [showAdd, setShowAdd] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
   const classes = useStyles();
 
-  const { isAuthenticated, loginWithRedirect, logoutWithRedirect } = useAuth0();
+  const {
+    isAuthenticated,
+    loginWithRedirect,
+    logoutWithRedirect,
+    loading,
+    user,
+  } = useAuth0();
+
+  console.log("USER: ", user);
 
   return (
     <>
-      {isAuthenticated ? <Navbar /> : null}
+      {isAuthenticated ? <Navbar handleLogout={logoutWithRedirect} /> : null}
       <div className={classes.mainContainer}>
-        {!isFetching ? (
+        {!loading ? (
           isAuthenticated ? (
             <>
-              <h1>Welcome, {user.username}.</h1>
+              <h1>Welcome, {user.name}.</h1>
               <div className={classes.buttonsContainer}>
                 <button
                   onClick={() => {
@@ -103,12 +115,14 @@ const App = (props) => {
               {showAdd ? <AddTodo /> : null}
               <TodoList showDelete={showDelete} />
             </>
-          ) : !showSignUp ? (
-            <LoginUser handleLinkClick={() => setShowSignUp(true)} />
           ) : (
-            <SignUpUser handleLinkClick={() => setShowSignUp(false)} />
+            <button onClick={() => loginWithRedirect({})} type="button">
+              Login
+            </button>
           )
         ) : (
+          // <LoginUser handleLinkClick={() => setShowSignUp(true)} />
+          // <SignUpUser handleLinkClick={() => setShowSignUp(false)} />
           <Loading />
         )}
       </div>

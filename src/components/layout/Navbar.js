@@ -22,9 +22,12 @@ const Navbar = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <Link className={classes.link} onClick={props.logoutUser} to="/">
+      <button onClick={() => props.handleLogout({})} type="button">
+        Log out
+      </button>
+      {/* <Link className={classes.link} onClick={props.logoutUser} to="/">
         Logout
-      </Link>
+      </Link> */}
     </div>
   );
 };

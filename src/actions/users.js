@@ -99,3 +99,30 @@ export const logoutUser = () => {
     type: userActions.LOGOUT_USER,
   };
 };
+
+export const requestLogin = (creds) => {
+  return {
+    type: userActions.LOGIN_REQUEST,
+    isFetching: true,
+    isAuthenticated: false,
+    creds,
+  };
+};
+
+export const receiveLogin = (user) => {
+  return {
+    type: userActions.LOGIN_SUCCESS,
+    isFetching: false,
+    isAuthenticated: true,
+    id_token: user.id_token,
+  };
+};
+
+export const loginError = (message) => {
+  return {
+    type: userActions.LOGIN_FAILURE,
+    isFetching: false,
+    isAuthenticated: false,
+    message,
+  };
+};
