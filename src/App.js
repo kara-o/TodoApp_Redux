@@ -7,6 +7,7 @@ import Loading from "./components/reusable/Loading";
 import { Footer, Navbar } from "./components/layout";
 import { connect } from "react-redux";
 import { createUseStyles } from "react-jss";
+import { useAuth0 } from "../../react-auth0-spa";
 
 const useStyles = createUseStyles({
   "@global": {
@@ -71,12 +72,14 @@ const App = (props) => {
   const [showSignUp, setShowSignUp] = useState(false);
   const classes = useStyles();
 
+  const { isAuthenticated, loginWithRedirect, logoutWithRedirect } = useAuth0();
+
   return (
     <>
-      {user ? <Navbar /> : null}
+      {isAuthenticated ? <Navbar /> : null}
       <div className={classes.mainContainer}>
         {!isFetching ? (
-          user ? (
+          isAuthenticated ? (
             <>
               <h1>Welcome, {user.username}.</h1>
               <div className={classes.buttonsContainer}>
